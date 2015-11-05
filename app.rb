@@ -25,6 +25,10 @@ helpers do
   def username
     session[:identity] ? session[:identity] : 'Hello stranger'
   end
+
+  def h(html)
+    CGI.escapeHTML html
+  end
 end
 
 get '/' do
@@ -52,25 +56,17 @@ post '/code/*' do
 end
 
 get '/templates/:slug/render' do
-  ## Read test data for handlebars variables interpolation
-  #merge_vars =  params ? JSON.parse(File.read("params.json")) : []
-  #
-  ## Fetch the code
-  #template = MandrillClient.client.templates.info(params[:slug])
-  #
-  #handlebars = Handlebars::Context.new
-  #h_template = handlebars.compile(template['code'])
-  #h_template.call(localize_merge_vars(merge_vars))
-
-  erb(:template_layout, :locals => { :slug => params["slug"], :render_for_upload => false } ,:layout => false)
+  erb(:template_layout,
+      :locals => {
+          :slug => params["slug"],
+          :render_for_upload => false },
+      :layout => false)
 end
 
 post '/templates/:slug/draft' do
-
   upload_template params[:slug]
   flash[:notice] = "#{params[:slug]} has been drafted successfully !"
   redirect "/"
-
 end
 
 post '/templates/draft' do
