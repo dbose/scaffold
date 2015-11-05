@@ -1,24 +1,10 @@
-Hello!
+Scaffold - A Mandrill Template Manager
 ====
 
-This is a demonstrator for [Sinatra](http://www.sinatrarb.com/) and [Twitter Bootstrap](http://getbootstrap.com/). 
+Useful for managing the work-flows around Mandrill templates
 
-Use it as a boilerplate to start your own apps.
-
-Go!
-===
-
-Download and run sinatra-bootstrap:
-
-    git clone https://github.com/bootstrap-ruby/sinatra-bootstrap
-    
-    cd sinatra-bootstrap
-    bundle install             # To install sinatra
-    
-    bundle exec ruby app.rb    # To run the sample
-	
-Then open [http://localhost:4567/](http://localhost:4567/)
-
-What's next?
-============
-- Try the rerun gem to restart Sinatra automatically when you change source files: https://github.com/alexch/rerun
+  - Syncs mandrill templates to local (for version controlling templates)
+  - Put the common styles and footer in a partial
+  - Allows to edit the common styles and footer
+  - Preview templates
+  - Draft and Publish individual or all templates
