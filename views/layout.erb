@@ -3,8 +3,15 @@
 	<head>
 		<title>Sinatra + Twitter Bootstrap</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 		<!-- Bootstrap -->
 		<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet">
+
+    <!--<script src="/vendor/ace/ace.js" type="text/javascript" charset="utf-8"></script>-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.2/ace.js"></script>
+    <script src="/vendor/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -14,7 +21,7 @@
 		<![endif]-->
 	</head>
 	<body>
-		<div class="container">
+    <div class="container">
 
 			<!-- Static navbar -->
 			<nav class="navbar navbar-default" role="navigation">
@@ -25,20 +32,18 @@
 			      <span class="icon-bar"></span>
 			      <span class="icon-bar"></span>
 			    </button>
-			    <a class="navbar-brand" href="/">Sinatra + Twitter Bootstrap</a>
+			    <a class="navbar-brand" href="/">Scaffold - A Mandrill Template Manager</a>
 			  </div>
 			  <div class="navbar-collapse collapse">
-			    <ul class="nav navbar-nav">
-			      <li><a href="/secure/place">Secret</a></li>
-			    </ul>
-			    <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right">
 			        <li class="dropdown">
-			          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=username%> <b class="caret"></b></a>
-			        <ul class="dropdown-menu">
-			            <li><a href="/login/form">Login</a></li>
-			            <li class="divider"></li>
-			            <li><a href="/logout">Logout</a></li>
-			        </ul>
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings</b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                      <a href="/sync" class="btn btn-danger">Sync from Mandrill</a>
+                    </li>
+                    <li class="divider"></li>
+                </ul>
 			      </li>
 
 			    </ul>
@@ -49,15 +54,14 @@
 			      <%if @error then %>
 			          <div class="alert alert-error"><%=@error%></div>
 			      <% end %>
+
+            <% unless flash[:notice].nil? %>
+                <%= erb(:flash, :layout => false) %>
+            <% end %>
 			      <%= yield %>
 			</div>
 
 	</div>
 
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/vendor/jquery-1.9.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

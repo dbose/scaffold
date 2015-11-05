@@ -1,0 +1,37 @@
+<!-- tabs left -->
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs templates">
+    <% @remote_templates.each do |template| %>
+      <li>
+        <a href="#<%= template["slug"] %>" data-toggle="tab">
+          <%= template["name"] %>
+        </a>
+
+        <button class="btn btn-primary template-action"
+                data-slug="<%= template["slug"] %>"
+                data-action="draft">
+          Draft
+        </button>
+        <button class="btn btn-danger template-action"
+                data-slug="<%= template["slug"] %>"
+                data-action="publish">
+          Publish
+        </button>
+        <button class="btn btn-info template-action"
+                data-slug="<%= template["slug"] %>"
+                data-action="sync">
+          Sync from Mandrill
+        </button>
+      </li>
+    <% end %>
+  </ul>
+  <div class="tab-content templates">
+    <% @remote_templates.each do |template| %>
+      <div class="tab-pane" id="<%= template["slug"] %>">
+        <iframe id="preview-<%= template["slug"] %>" src="/templates/<%= template["slug"] %>/render">
+        </iframe>
+      </div>
+    <% end %>
+  </div>
+</div>
+<!-- /tabs -->

@@ -1,0 +1,51 @@
+// grep -oE "{{([^}]+)}}" templates/advertiser-sale-agent-signup-paid/code
+[
+  {
+    "name":     "DOMAIN_LOGO",
+    "content":  "http://www.business.com.au/"
+  },
+  {
+    "name":     "EMAIL_FIRST_NAME",
+    "content":  "Deb"
+  },
+  {
+    "name":     "CONFIRMATION_PRE_TEXT",
+    "content":  "Awesome"
+  },
+  {
+    "name":     "DOMAIN_NAME",
+    "content":  "business.com.au"
+  },
+  {
+    "name":     "FRIENDLY_URI",
+    "content":  "business.com.au/demo"
+  },
+  {
+    "name":     "EMAIL_LOGIN",
+    "content":  "bose.debasish@gmail.com"
+  },
+  {
+    "name":     "EMAIL_PASSWORD",
+    "content":  "***7890"
+  },
+  {
+    "name":     "ADDITIONAL_OFFICE_HTML",
+    "content":  "That is great"
+  },
+  {
+    "name":     "SALE_DATE",
+    "content":  "20/02/2014"
+  },
+  {
+    "name":     "PLAN_STRING",
+    "content":  "Premium"
+  },
+  {
+    "name":     "PLAN_DESCRIPTION",
+    "content":  "Premium"
+  },
+  {
+    "name":     "publication_name",
+    "content":  "www.thecourier.com.au"
+  }
+]

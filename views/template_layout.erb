@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <% unless render_for_upload %>
+      <link href="/styles.css" rel="stylesheet">
+      <h1 class="template-header"><%= slug %></h1>
+    <% end %>
+    <style>
+      <%= erb(:'styles/styles', :layout => false) %>
+    </style>
+  </head>
+  <body class="template-body">
+    <div id="wrapper">
+      <div id="top"></div>
+      <%= erb(:'partials/header', :layout => false) %>
+      <div style="clear: both;"></div>
+      <div id="contentliquid">
+        <div id="content">
+          <div id="body-content">
+            <%= erb("templates/#{slug}".to_sym, :layout => false) %>
+          </div>
+          <%= erb(:'partials/footer', :layout => false) %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+

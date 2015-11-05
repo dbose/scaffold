@@ -1,0 +1,146 @@
+<div>
+
+  <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+    <li class="active">
+      <a href="#common_styles" data-toggle="tab">Common Styles</a>
+    </li>
+    <li>
+      <a href="#footer" data-toggle="tab">Footer</a>
+    </li>
+    <li>
+      <a href="#mandrill_templates" data-toggle="tab">Mandrill Templates</a>
+    </li>
+    <li class="dropdown">
+      <a class="dropdown-toggle"
+         data-toggle="dropdown"
+         href="#"
+         role="button">
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#" class="all-template-action" data-action="draft">Push all to Mandrill as draft</a></li>
+        <li><a href="#" class="all-template-action" data-action="publish">Publish all to Mandrill</a></li>
+      </ul>
+    </li>
+  </ul>
+  <div id="my-tab-content" class="tab-content">
+    <div class="tab-pane active" id="common_styles">
+      <div id="editor">
+        <%= erb(:'styles/styles', :layout => false) %>
+      </div>
+    </div>
+    <div class="tab-pane" id="footer">
+      <div id="footer-editor">
+        <%= erb(:'partials/footer', :layout => false) %>
+      </div>
+    </div>
+    <div class="tab-pane" id="mandrill_templates">
+      <%= erb(:mandrill_templates, :layout => false) %>
+    </div>
+  </div>
+
+
+
+  <!--<ul class="tabs">-->
+    <!--<li><a href="#">Common Styles</a></li>-->
+    <!--<li><a href="#">Mandrill Templates</a></li>-->
+  <!--</ul>-->
+  <!--&lt;!&ndash; tab "panes" &ndash;&gt;-->
+  <!--<div class="panes">-->
+    <!--<div id="pane1">Tab1 content</div>-->
+    <!--<div id="pane2">-->
+      <!---->
+    <!--</div>-->
+  <!--</div>-->
+
+</div>
+
+<script type="text/javascript">
+  jQuery(document).ready(function () {
+    // $("ul.tabs").tabs("div.panes > div");
+    $('.dropdown-toggle').dropdown();
+    $('.template-action').click(function(e) {
+      var slug = $(this).data('slug'),
+          action = $(this).data('action');
+
+      $.ajax({
+        type: "POST",
+        url:  ['/templates', slug, action].join("/"),
+        success: function(data) {
+          console.log(['Templates with id = ', slug, ' is ', action, 'ed'].join(''));
+          window.location.reload();
+        }
+      });
+
+    });
+
+    $('.all-template-action').click(function(e) {
+      var action = $(this).data('action');
+
+      $.ajax({
+        type: "POST",
+        url:  ['/templates', action].join("/"),
+        success: function(data) {
+          console.log(['All Templates ', ' are ', action, 'ed'].join(''));
+          window.location.reload();
+        }
+      });
+
+    });
+
+    $(".nav-tabs.templates a").click(function(e) {
+
+      template_id = $(this).attr("href");
+
+
+    });
+
+    setEditor({
+      id:   'editor',
+      path: '/code/styles/styles',
+      language: 'css',
+      styles: {
+        top:  '20%',
+        left: '0'
+      }
+    });
+
+    setEditor({
+      id:   'footer-editor',
+      path: '/code/partials/footer',
+      language: 'html',
+      styles: {
+        top:  '20%',
+        left: '0'
+      }
+    });
+
+  });
+
+  function setEditor(options) {
+
+    var editor = ace.edit(options['id']);
+    editor.getSession().setUseWorker(false);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/" + options['language']);
+
+    document.getElementById(options['id']).style.fontSize = '14px';
+    document.getElementById(options['id']).style.top = options.styles.top;
+    document.getElementById(options['id']).style.left = options.styles.left;
+
+    setInterval(function() {
+
+      $.ajax({
+        type: "POST",
+        url:  options['path'],
+        data: { code: $.trim(editor.getValue()) },
+        success: function(data) {
+          console.log('style saved...');
+        }
+      });
+
+    }, 10000);
+  }
+
+
+</script>
