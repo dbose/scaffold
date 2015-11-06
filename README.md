@@ -23,7 +23,7 @@ Setup & Workflow
 
   1. Checkout the code
   2. Run `bundle install` as usual
-  3. export MANDRILL_APIKEY='xxx' to he shell or through `~/.bash_profile`
+  3. export MANDRILL_APIKEY='xxx' to the shell or through `~/.bash_profile`
   4. Navigate to the app (usually localhost:4567)
   5. Common styles (css), footer (html) and test-data (JSON) should be available as tabs
   6. All of the above tab-contents are dynamically stored in their respective partials
