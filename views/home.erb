@@ -2,10 +2,13 @@
 
   <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
     <li class="active">
-      <a href="#common_styles" data-toggle="tab">Common Styles</a>
+      <a href="#common_styles" data-toggle="tab">Styles</a>
     </li>
     <li>
       <a href="#footer" data-toggle="tab">Footer</a>
+    </li>
+    <li>
+      <a href="#params" data-toggle="tab">Test Data</a>
     </li>
     <li>
       <a href="#mandrill_templates" data-toggle="tab">Mandrill Templates</a>
@@ -32,6 +35,11 @@
     <div class="tab-pane" id="footer">
       <div id="footer-editor">
         <%= h erb(:'partials/footer', :layout => false) %>
+      </div>
+    </div>
+    <div class="tab-pane" id="params">
+      <div id="params-editor">
+        <%= h erb(:'params.json', :layout => false) %>
       </div>
     </div>
     <div class="tab-pane" id="mandrill_templates">
@@ -109,6 +117,16 @@
       id:   'footer-editor',
       path: '/code/partials/footer',
       language: 'html',
+      styles: {
+        top:  '20%',
+        left: '0'
+      }
+    });
+
+    setEditor({
+      id:   'params-editor',
+      path: '/code/params.json',
+      language: 'javascript',
       styles: {
         top:  '20%',
         left: '0'

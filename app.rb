@@ -56,11 +56,16 @@ post '/code/*' do
 end
 
 get '/templates/:slug/render' do
-  erb(:template_layout,
-      :locals => {
-          :slug => params["slug"],
-          :render_for_upload => false },
-      :layout => false)
+  template = erb(:template_layout,
+                :locals => {
+                    :slug => params["slug"],
+                    :render_for_upload => false },
+                :layout => false)
+
+  merge_vars =  JSON.parse(File.read("views/params.json.erb")) rescue []
+  handlebars = Handlebars::Context.new
+  h_template = handlebars.compile(template)
+  h_template.call(localize_merge_vars(merge_vars))
 end
 
 post '/templates/:slug/draft' do
@@ -176,6 +181,9 @@ def upload_template(slug)
   templated_content = erb(:template_layout,
                           :locals => { :slug => slug, :render_for_upload => true },
                           :layout => false)
+
+  # TODO: Ensure not to override un-used fields
+  #
   result = MandrillClient.client.templates.send(method,
                                                 slug,
                                                 nil,
@@ -183,7 +191,6 @@ def upload_template(slug)
                                                 nil,
                                                 templated_content,
                                                 nil,
-                                                false, # publish
-                                                [])
+                                                false) # publish
   puts result.to_yaml
 end

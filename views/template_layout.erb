@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <% unless render_for_upload %>
       <link href="/styles.css" rel="stylesheet">
-      <h1 class="template-header"><%= slug %></h1>
+      <h1 class="template-header"><a href="https://mandrillapp.com/templates/code?id=<%= slug %>"><%= slug %></a></h1>
     <% end %>
     <style>
       <%= erb(:'styles/styles', :layout => false) %>
