@@ -76,7 +76,7 @@ end
 
 post '/templates/draft' do
   local_templates.each do |local_template|
-    slug = local_template.split(".").first
+    slug = local_template.split("/").last.split(".").first
     puts "Uploading #{slug}..."
     upload_template slug
   end
