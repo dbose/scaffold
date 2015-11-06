@@ -26,7 +26,7 @@ Setup & Workflow
   3. export MANDRILL_APIKEY='xxx' to the shell or through `~/.bash_profile`
   4. Navigate to the app (usually localhost:4567)
   5. Common styles (css), footer (html) and test-data (JSON) should be available as tabs
-  6. All of the above tab-contents are dynamically stored in their respective partials
+  6. All of the above tab-contents are automatically stored in their respective partials
   5. In 'Mandrill Templates' tab, navigate to the template you want to work with
   6. The preview (with hHandlebars variables interpolated) is shown at right side.
   7. Once happy with preview, either "Draft" or "Publish" the template to Mandrill
