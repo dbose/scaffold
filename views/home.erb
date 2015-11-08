@@ -146,18 +146,24 @@
     document.getElementById(options['id']).style.top = options.styles.top;
     document.getElementById(options['id']).style.left = options.styles.left;
 
-    setInterval(function() {
+    editor.getSession().on('change', function(e) {
 
       $.ajax({
         type: "POST",
         url:  options['path'],
         data: { code: $.trim(editor.getValue()) },
         success: function(data) {
-          console.log('style saved...');
+
+          $("[id^=preview]").each(function(index, element){
+
+            $(element)[0].contentWindow.location.reload();
+            console.log('reloaded - ' + $(this).attr('id'));
+
+          });
         }
       });
 
-    }, 10000);
+    });
   }
 
 
