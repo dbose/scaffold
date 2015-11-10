@@ -113,8 +113,21 @@ def generate_local_templates_unsafe(remote_templates, path = "views/templates/")
 end
 
 def generate_local_template_unsafe(template, path = "views/templates/")
-  File.open "#{path}#{template['slug']}.erb", "w+"  do |file|
+  template_folder = "#{path}#{template['slug']}"
+  unless File.directory?(template_folder)
+    FileUtils.mkdir_p(template_folder)
+  end
+
+  File.open "#{template_folder}/template.erb", "w+"  do |file|
     file.write(extract_content_from_template(template))
+  end
+
+  File.open "#{template_folder}/header.erb", "w+"  do |file|
+    file.write(extract_content_from_template(template, {
+        :content_selector => "div#Slide",
+        :strip            => false,
+        :method           => :to_html
+    }))
   end
 end
 
@@ -123,7 +136,7 @@ def remote_templates
 end
 
 def local_templates
-  @local_templates ||= Dir['views/templates/*']
+  @local_templates ||= Dir['views/templates/**/*.erb']
 end
 
 def localize_merge_vars(merge_vars)
@@ -132,27 +145,33 @@ def localize_merge_vars(merge_vars)
   h
 end
 
-def extract_content_from_template(template, content_selector = 'div#body-content')
+def extract_content_from_template(template, options = {})
   begin
     template_code = template['code']
     slug = template['slug']
+
+    options = {
+      :content_selector => 'div#body-content',
+      :strip            => true,
+      :method           => :inner_html
+    }.merge(options)
 
     return nil if template_code.nil?
     parser = Nokogiri::HTML.fragment(template_code)
 
     # Need to delete <style> , <meta> tags etc.
-    ['title', 'style', 'meta'].each do |tag|
+    ['title', 'style', 'meta', 'div#Slide'].each do |tag|
       tag_parser = parser.css(tag) rescue []
       tag_parser.remove unless tag_parser.empty?
-    end
+    end if options[:strip]
 
     #binding.pry if slug == 'advertiser-sale-agent-signup-paid'
 
-    parsed = parser.css(content_selector) rescue []
+    parsed = parser.css(options[:content_selector]) rescue []
     return template_code if parsed.empty?
 
     begin
-      parsed.try(:inner_html)
+      parsed.try(options[:method])
     rescue => e
       puts e.backtrace
       parsed.to_a.first.inner_html

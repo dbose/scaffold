@@ -16,12 +16,15 @@
       <%= erb(:'partials/header', :layout => false) %>
       <div style="clear: both;"></div>
       <div id="contentliquid">
-        <div id="content">
-          <div id="body-content">
-            <%= erb("templates/#{slug}".to_sym, :layout => false) %>
+        <div id="body-content">
+          <div id="Slide" align="center">
+            <%= erb("templates/#{slug}/header".to_sym, :layout => false) %>
           </div>
-          <%= erb(:'partials/footer', :layout => false) %>
+          <div id="content">
+            <%= erb("templates/#{slug}/template".to_sym, :layout => false) %>
+          </div>
         </div>
+        <%= erb(:'partials/footer', :layout => false) %>
       </div>
     </div>
   </body>
