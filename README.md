@@ -28,8 +28,26 @@ Setup & Workflow
   4. Navigate to the app (usually localhost:4567)
   5. Common styles (css), footer (html) and test-data (JSON) should be available as tabs
   6. All of the above tab-contents are automatically stored in their respective partials
-  5. In 'Mandrill Templates' tab, navigate to the template you want to work with
+  5. In 'Mandrill Templates' tab, navigate to the template you want to work with. Templates are stored in their
+     respective folder with a template-specific header
+
+     ex.
+
+      ```
+      advertiser-account-dashboard-password-reset
+        => header.erb
+        => template.erb
+      ```
+
   6. The preview (with Handlebars variables interpolated) is shown at right side.
   7. Once happy with preview, either "Draft" or "Publish" the template to Mandrill
   8. A link to the Mandrill template editor is provided at the top of the template preview
   9. You should be able to sync each of the template using "Sync from Mandrill" action
+
+
+  TODO
+  =====
+
+    1. Specs
+    2. Remove inlined JS
+    3. Better modularization in `app.rb`
